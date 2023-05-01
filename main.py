@@ -1,7 +1,6 @@
 import argparse
 import atexit
 import os
-import sys
 from configparser import ConfigParser
 from distutils.util import strtobool
 from typing import Dict
@@ -52,6 +51,8 @@ def create_app(services: Service) -> Flask:
     # Init flask application
     app = Flask(__name__)
 
+    CORS(app)
+
     # Register views and urls
     register_views(app, services)
 
@@ -92,8 +93,6 @@ def main() -> None:
     # Create flask app
     app = create_app(services)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-
-    CORS(app)
 
     debug_mode: bool = bool(strtobool(os.getenv("DEBUG", "False")))
     host = os.getenv("HOST")

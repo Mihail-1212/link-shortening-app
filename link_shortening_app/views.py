@@ -3,6 +3,7 @@ from typing import Any
 
 import validators as validators
 from flask import Blueprint, jsonify, request
+from flask_cors import cross_origin
 
 from link_shortening_app.models import ShortLink
 from link_shortening_app.services import Service
@@ -19,6 +20,7 @@ def construct_blueprint(services: Service):
     bp = Blueprint(name='main', import_name=__name__, url_prefix='/v1/short-links')
 
     @bp.route('/getAllShortLinks', methods=['GET'])
+    @cross_origin()
     def get_all_short_links() -> Any:
         """
         Return list of ALL short links records
@@ -34,6 +36,7 @@ def construct_blueprint(services: Service):
         return jsonify(serialized_short_links)
 
     @bp.route('/generateShortLinkFromUrl', methods=['POST'])
+    @cross_origin()
     def generate_short_link_from_url() -> Any:
         """
         Get full url address and title, generate new hash for this address, save to repository and return to user
@@ -64,6 +67,7 @@ def construct_blueprint(services: Service):
         return jsonify(new_short_link.to_dict()), HTTPStatus.OK
 
     @bp.route('/changeShortLinkInfo', methods=['PUT'])
+    @cross_origin()
     def change_short_link_info():
         """
         Change record info (title only), getting hash
@@ -98,6 +102,7 @@ def construct_blueprint(services: Service):
         return jsonify(updated_short_link.to_dict()), HTTPStatus.OK
 
     @bp.route('/deleteShortLink', methods=['DELETE'])
+    @cross_origin()
     def delete_short_link():
         """
         Remove record from application, getting hash
@@ -121,6 +126,7 @@ def construct_blueprint(services: Service):
         return "Record was deleted success!", HTTPStatus.OK
 
     @bp.route('/getShortLinkByHash', methods=['GET'])
+    @cross_origin()
     def get_short_link_by_hash():
         """
         Return full url by hash
