@@ -9,6 +9,7 @@ from typing import Dict
 import psycopg2
 from flask import Flask
 from flask.cli import load_dotenv
+from flask_cors import CORS
 
 from link_shortening_app.repository import Repository
 from link_shortening_app.repository.postgres import create_repo, database_up
@@ -91,6 +92,8 @@ def main() -> None:
     # Create flask app
     app = create_app(services)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+
+    CORS(app)
 
     debug_mode: bool = bool(strtobool(os.getenv("DEBUG", "False")))
     host = os.getenv("HOST")
