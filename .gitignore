@@ -1,0 +1,16 @@
+# Help develop files
+activate.bat
+
+
+# Env folders and files
+/venv/
+/env/
+.env
+*.ini
+
+# Python cache
+/__pycache__/
+*.pyc
+
+# IDE
+/.idea/
