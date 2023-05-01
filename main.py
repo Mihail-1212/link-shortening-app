@@ -104,8 +104,8 @@ def main() -> None:
 
     if args.migrate is not None and strtobool(args.migrate):
         # if run app with --migrate arg => migrate to database
-        print(os.path.join(PROJECT_ROOT, 'schema'))
         database_up(db, os.path.join(PROJECT_ROOT, 'schema'))
+        print("Database has been successfully updated")
         return
     # Run flask application
     app.run(host=host, port=port, debug=debug_mode)
