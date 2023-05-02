@@ -1,3 +1,5 @@
+import json
+
 from http import HTTPStatus
 from typing import Any
 
@@ -125,7 +127,7 @@ def construct_blueprint(services: Service):
 
         return "Record was deleted success!", HTTPStatus.OK
 
-    @bp.route('/getShortLinkByHash', methods=['GET'])
+    @bp.route('/getShortLinkByHash', methods=['POST'])
     @cross_origin()
     def get_short_link_by_hash():
         """
@@ -139,6 +141,7 @@ def construct_blueprint(services: Service):
         - 200 - success
         """
         data = request.get_json()
+        
         if "hash" not in data:
             return "\"Hash\" key must be in request body", HTTPStatus.BAD_REQUEST
         hash_str = data["hash"]
