@@ -38,3 +38,10 @@ Then start application:
 ```commandline
 python main.py
 ```
+
+Endpoints description:
+- getAllShortLinks [GET] - return list of all short link instances
+- generateShortLinkFromUrl [POST] (title, url) - generate NEW short link and return it 
+- changeShortLinkInfo [PUT] (hash, title) - change info (title) of short link object
+- deleteShortLink [DELETE] (hash) - remove short link instance from app
+- getShortLinkByHash [POST] (hash) - getting short link by hash
